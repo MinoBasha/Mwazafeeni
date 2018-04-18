@@ -12,7 +12,7 @@
 
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
-         <script src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyBmnATbcsItV07AIzYhG-6E0ZYgZgTkh3w"></script>
+         <script src="https://maps.googleapis.com/maps/api/js?libraries=places&key= AIzaSyBmnATbcsItV07AIzYhG-6E0ZYgZgTkh3w"></script>
 
         <!-- Styles -->
         <style>
@@ -66,9 +66,6 @@
             .m-b-md {
                 margin-bottom: 30px;
             }
-            .map-canvas{
-              position: initial;
-            }
         </style>
     </head>
     <body>
@@ -89,7 +86,7 @@
                       <a href="{{ URL::to('employee/create') }}"><div class="btn btn-success">Add New employee</div></a>
                   </div> -->
 
-                  <h2>Add new Employee</h2>
+                  <h2>Edit new Employee</h2>
                       <hr>
                        <form action="/employee" method="post">
                        {{ csrf_field() }}
@@ -106,12 +103,8 @@
                           <input type="text" class="form-control" id="emp_image"  name="emp_image" required>
                         </div>
                         <div class="form-group">
-                          <label for="user_id">User ID</label>
-                          <select class="form-control" id="user_id" name="user_id"required>
-                            @foreach($user as $user)
-                            <option value="{{$user->id}}">{{$user->id}}</option>
-                            @endforeach
-                          </select>
+                          <label for="user_id">User Id</label>
+                          <input type="text" class="form-control" id="user_id"  name="user_id"required>
                         </div>
                         <div class="form-group">
                           <label for="emp_job">Job</label>
@@ -130,7 +123,7 @@
                         </div>
                         <label for="">Map</label>
                         <input type="text" class="form-control" id="searchmap">
-                        <div id="map-canvas" style="position: initial;height:300px;"></div>
+                        <div id="map-canvas"></div>
                       </div>
                         <div class="form-group">
                           <label for="lat">Latitude</label>

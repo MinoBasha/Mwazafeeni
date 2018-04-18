@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\EmployeeModel;
 
 use App\Http\Requests\EmployeeRequest;
+use App\User;
 
 class EmployeeModelController extends Controller
 {
@@ -27,7 +28,8 @@ class EmployeeModelController extends Controller
      */
     public function create()
     {
-        return view('employee.create');
+       $user = User::all();
+        return view('employee.create',compact('user'));
     }
 
     /**
