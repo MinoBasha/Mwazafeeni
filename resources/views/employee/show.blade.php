@@ -12,6 +12,7 @@
 
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
+        <script src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyBmnATbcsItV07AIzYhG-6E0ZYgZgTkh3w"></script>
         <!-- Styles -->
         <style>
             html, body {
@@ -89,9 +90,11 @@
                  <div class="jumbotron text-center">
                     <p>
                       <strong>First Name:</strong> {{ $emp->emp_fname }}<br>
-                      <strong>Last Name:</strong> {{$emp->emp_lname }}}<br>
-                      <strong>Job:</strong> {{$emp->emp_job }}}<br>
-                      <strong>Status:</strong> {{$emp->emp_status }}}<br>
+                      <strong>Last Name:</strong> {{$emp->emp_lname }}<br>
+                      <strong>Job:</strong> {{$emp->emp_job }}<br>
+                      <strong>Status:</strong> {{$emp->emp_status }}<br>
+                        <strong>Loaction:-</strong>
+                      <div id="map-canvas" style="position: initial;height:300px;"></div><br>
                     </p>
                 </div>
                 <div class="pull-right">
@@ -100,6 +103,22 @@
 
                </div>
              </div>
+             <script>
+             var map = new google.maps.Map(document.getElementById('map-canvas'),{
+               center:{
+                 lat:30.04,
+                 lng:31.24
+               },
+               zoom:15
+             });
+             var marker = new google.maps.Marker({
+               position:{
+                 lat:30.04,
+                 lng:31.24
+               },
+               map: map
+             });
+             </script>
         </div>
 
     </body>

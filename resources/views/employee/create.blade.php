@@ -66,13 +66,10 @@
             .m-b-md {
                 margin-bottom: 30px;
             }
-            .map-canvas{
-              position: initial;
-            }
         </style>
     </head>
     <body>
-        <div class="flex-center position-ref full-height">
+        <div class=" position-ref full-height">
             @if (Route::has('login'))
                 <div class="top-right links">
                     @auth
@@ -85,10 +82,6 @@
             @endif
           <div class="container">
                   <div class="col-md-12">
-                  <!-- <div class="pull-right">
-                      <a href="{{ URL::to('employee/create') }}"><div class="btn btn-success">Add New employee</div></a>
-                  </div> -->
-
                   <h2>Add new Employee</h2>
                       <hr>
                        <form action="/employee" method="post">
@@ -128,13 +121,14 @@
                           <label for="map_title">Location Title</label>
                           <input type="text" class="form-control" id="map_title"  name="map_title"required>
                         </div>
-                        <label for="">Map</label>
-                        <input type="text" class="form-control" id="searchmap">
-                        <div id="map-canvas" style="position: initial;height:300px;"></div>
-                      </div>
+                        <div class="form-group">
+                          <label for="">Map</label>
+                          <input type="text" class="form-control" id="searchmap">
+                          <div id="map-canvas" style="height:300px;"></div>
+                        </div>
                         <div class="form-group">
                           <label for="lat">Latitude</label>
-                          <input type="text" class="form-control" id="lat"  name="lat"required>
+                          <input type="text" class="form-control" id="lat"  name="lat" required>
                         </div>
                         <div class="form-group">
                           <label for="lng">Longtitde</label>
@@ -154,21 +148,46 @@
                             <a href="{{ URL::to('employee/') }}"><div class="btn btn-success">Go to the list</div></a>
                         </div>
                       </form>
-
                   </div>
                   <script>
                   var map = new google.maps.Map(document.getElementById('map-canvas'),{
                     center:{
-                      lat:27.72,
-                      lng:85.36
+                      lat:30.04,
+                      lng:31.24
                     },
                     zoom:15
                   });
+                  var marker = new google.maps.Marker({
+                    position:{
+                      lat:30.04,
+                      lng:31.24
+                    },
+                    map: map,
+                    draggable: true
+                  });
+                  var searchBox = new google.maps.places.SearchBox(document.getElementById('searchmap'));
+
+                  google.maps.event.addListener(searchBox,'places_changed',function() {
+                    var places = searchBox.getPlaces();
+                    var bounds = new google.maps.LatLngBounds();
+                    var i,place;
+                    for(i=0;place=places[i];i++){
+                      bounds.extend(place.geometry.location);
+                      marker.setPosition(place.geometry.location);
+                    }
+                    map.fitBounds(bounds);
+                    map.setZoom(15);
+                  });
+                  google.maps.event.addListener(marker,'poition_changed',function(){
+                    var lat = marker.getPosition().lat();
+                    var lng = marker.getPosition().lng();
+
+                    $('#lat').val(lat);
+                    $('#lng').val(lng);
+
+                  });
                   </script>
-              </div>
         </div>
-
-
-
+     </div>
     </body>
 </html>
